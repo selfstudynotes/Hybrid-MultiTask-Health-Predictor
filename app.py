@@ -28,8 +28,14 @@ HTML_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hybrid Multitasking Preventive Healthcare AI</title>
+    <title>Hybrid Multitasking Preventive Healthcare AI - Sakshi Sharma</title>
     
+    <!-- Google SEO Tags -->
+    <meta name="title" content="Hybrid Multitasking Preventive Healthcare AI - Sakshi Sharma">
+    <meta name="description" content="Official AI Preventive Healthcare Portal by Sakshi Sharma (B.Tech CSE AI, Meerut) for Heart Disease and Diabetes Risk Prediction.">
+    <meta name="keywords" content="Sakshi Sharma, Sakshi Sharma Meerut, Hybrid Multitasking Preventive Healthcare, Sakshi Sharma AI Project, CSE AI Meerut">
+    <meta name="robots" content="index, follow">
+
     <!-- Bootstrap 5 & FontAwesome & Google Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -174,14 +180,6 @@ HTML_TEMPLATE = """
             gap: 8px;
         }
 
-        .arch-step {
-            background: rgba(30, 41, 59, 0.5);
-            border-left: 4px solid #38bdf8;
-            border-radius: 12px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
         .team-box {
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -251,7 +249,7 @@ HTML_TEMPLATE = """
                     <i class="fa-solid fa-circle-check text-info fs-3"></i>
                     <div class="text-start">
                         <strong class="text-white small d-block">Verified Datasets</strong>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Cleveland & Framingham Clinical Records</small>
+                        <small class="text-secondary" style="font-size: 0.75rem;">Cleveland & Framingham Records</small>
                     </div>
                 </div>
             </div>
@@ -381,27 +379,8 @@ HTML_TEMPLATE = """
             {% endif %}
         </div>
 
-        <!-- WHY USE THIS PORTAL SECTION (HIGH CONVERTING) -->
-        <div class="glass-card mx-auto mt-5" style="max-width: 850px;">
-            <h4 class="fw-bold text-white mb-3"><i class="fa-solid fa-circle-question text-info me-2"></i>Why Use This Preventive Health AI?</h4>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
-                        <h6 class="fw-bold text-info"><i class="fa-solid fa-bullseye me-2"></i>Early Risk Identification</h6>
-                        <small class="text-secondary">Detects early cardiovascular and diabetic indicators before severe symptom onset using multi-task neural correlation.</small>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
-                        <h6 class="fw-bold text-info"><i class="fa-solid fa-file-contract me-2"></i>Clinical Level Validation</h6>
-                        <small class="text-secondary">Trained on standardized clinical datasets including UCI Heart Disease and Pima Diabetes benchmarks.</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- AUTHOR & PROJECT DETAILS SECTION -->
-        <div id="author-section" class="glass-card mx-auto mt-4" style="max-width: 850px;">
+        <div id="author-section" class="glass-card mx-auto mt-5" style="max-width: 850px;">
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
                 <span class="fs-2 text-info"><i class="fa-solid fa-graduation-cap"></i></span>
                 <div>
