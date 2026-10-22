@@ -28,7 +28,7 @@ HTML_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hybrid Health Predictor AI</title>
+    <title>Hybrid Multitasking Preventive Healthcare AI</title>
     
     <!-- Bootstrap 5 & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,321 +41,224 @@ HTML_TEMPLATE = """
             --cyan-accent: #0284c7;
             --green-success: #059669;
             --red-danger: #dc2626;
-            --bg-light: #f8fafc;
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #eef2f7 0%, #dbefe6 100%);
-            background-attachment: fixed;
-            color: #0f172a;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             min-height: 100vh;
+            color: #0f172a;
         }
 
         .navbar-custom {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-brand-text {
-            font-weight: 800;
-            font-size: 1.3rem;
-            color: var(--blue-primary);
-        }
-
-        .nav-link-custom {
-            color: #475569;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 8px 16px !important;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link-custom:hover {
-            color: var(--blue-primary);
-            background: rgba(30, 64, 175, 0.08);
-        }
-
-        .nav-link-custom.active {
-            background: var(--blue-primary);
-            color: #ffffff !important;
+            background: #ffffff;
+            border-bottom: 1px solid #cbd5e1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .glass-card {
             background: #ffffff;
-            border-radius: 24px;
+            border-radius: 20px;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 15px 35px rgba(0,0,0,.06);
-            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,.05);
+            padding: 2rem;
             margin-bottom: 2rem;
         }
 
         .stat-card {
-            background: #ffffff;
-            border-radius: 18px;
-            padding: 1.2rem;
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 1rem;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
             text-align: center;
         }
 
-        .stat-num {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--blue-primary);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-        }
-
-        .form-label-custom {
-            color: #334155;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .form-control-custom {
-            background: #f8fafc;
-            border: 1.5px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 12px 16px;
-            font-weight: 600;
-        }
-
-        .form-control-custom:focus {
-            background: #ffffff;
-            border-color: var(--blue-primary);
-            box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.12);
-        }
-
-        .btn-medai {
+        .btn-primary-custom {
             background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%);
             color: white;
             font-weight: 700;
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px 24px;
             border: none;
-            width: 100%;
-            font-size: 1rem;
-            box-shadow: 0 6px 18px rgba(30, 64, 175, 0.2);
             transition: all 0.3s ease;
         }
 
-        .btn-medai:hover {
-            transform: translateY(-2px);
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 10px 20px;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
             color: white;
         }
 
         footer {
             background: #ffffff;
             border-top: 1px solid #e2e8f0;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             margin-top: 3rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR HEADER -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" onclick="switchSection('home')" style="cursor: pointer;">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
                 <span class="fs-3">🩺</span>
-                <span class="nav-brand-text">MedAI Predictor</span>
+                <span class="fw-bold text-primary fs-5">MedAI Portal</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-menu ms-auto d-flex gap-2 list-unstyled mb-0 py-2">
-                    <li><a class="nav-link-custom active" id="tab-home" onclick="switchSection('home')">Home</a></li>
-                    <li><a class="nav-link-custom" id="tab-joint" onclick="switchSection('joint')">Predict</a></li>
-                    <li><a class="nav-link-custom" id="tab-tech" onclick="switchSection('tech')">Architecture</a></li>
-                    <li><a class="nav-link-custom" id="tab-contact" onclick="switchSection('contact')">Contact</a></li>
-                </ul>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <span class="badge bg-light text-dark border px-3 py-2 d-none d-md-inline-block">
+                    👤 Developer: <strong>SelfStudyNotes</strong>
+                </span>
+                <a href="#predict-section" class="btn btn-primary-custom btn-sm">Take Test</a>
             </div>
         </div>
     </nav>
 
-    <!-- MAIN CONTAINER -->
-    <div class="container my-4">
+    <!-- HERO SECTION -->
+    <div class="container my-5">
+        <div class="glass-card text-center">
+            <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-2 rounded-pill mb-3">
+                🔬 AI-Powered Health Predictor
+            </span>
+            <h1 class="fw-extrabold display-6 mb-3">
+                Hybrid Multitasking Heart Disease and Diabetic Disease Preventive Healthcare
+            </h1>
+            <p class="text-secondary fs-6 max-w-700 mx-auto mb-4">
+                Instantly check your heart disease and diabetes risk using advanced deep learning multitasking networks.
+            </p>
+            
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#predict-section" class="btn btn-primary-custom">
+                    <i class="fa-solid fa-notes-medical me-2"></i>Start Free Health Risk Check
+                </a>
+                <a href="https://api.whatsapp.com/send?text=Check%20your%20Heart%20%26%20Diabetes%20risk%20instantly%20using%20this%20AI%20Health%20Portal:%20https://hybrid-multitask-health-predictor.onrender.com" target="_blank" class="btn btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp fs-5"></i> Share with Friends & Family
+                </a>
+            </div>
+        </div>
 
-        <!-- SECTION 1: HOMEPAGE -->
-        <div id="sec-home">
-            <div class="glass-card text-center mb-4">
-                <div class="d-inline-flex align-items-center gap-2 badge bg-primary text-white rounded-pill px-3 py-2 fs-6 mb-3">
-                    <i class="fa-solid fa-heart-pulse me-1"></i> Preventive Health AI Portal
+        <!-- STATS -->
+        <div class="row g-3 mb-5">
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="fw-bold text-primary fs-4">95.8%</div>
+                    <small class="text-muted fw-bold">Prediction Accuracy</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="fw-bold text-primary fs-4">Dual Task</div>
+                    <small class="text-muted fw-bold">Heart & Diabetes</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="fw-bold text-primary fs-4">Instant</div>
+                    <small class="text-muted fw-bold">PDF Report Generation</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="stat-card">
+                    <div class="fw-bold text-primary fs-4">Free Access</div>
+                    <small class="text-muted fw-bold">Preventive Healthcare</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREDICTION FORM -->
+        <div id="predict-section" class="glass-card mx-auto" style="max-width: 800px;">
+            <h3 class="fw-bold mb-4 text-center">📋 Enter Patient Clinical Parameters</h3>
+            
+            <form action="/predict#predict-section" method="POST">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-secondary">Age (Years):</label>
+                        <input type="number" name="age" class="form-control" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-secondary">Fasting Glucose (mg/dL):</label>
+                        <input type="number" name="glucose" class="form-control" placeholder="e.g. 120" value="{{ glucose if result else '' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-secondary">Systolic BP (mmHg):</label>
+                        <input type="number" name="sys_bp" class="form-control" placeholder="e.g. 130" value="{{ sys_bp if result else '' }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold small text-secondary">Diastolic BP (mmHg):</label>
+                        <input type="number" name="dia_bp" class="form-control" placeholder="e.g. 85" value="{{ dia_bp if result else '' }}" required>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-bold small text-secondary">Serum Cholesterol (mg/dL):</label>
+                        <input type="number" name="cholesterol" class="form-control" placeholder="e.g. 200" value="{{ cholesterol if result else '' }}" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary-custom w-100 mt-4 py-3">
+                    🔍 Analyze & Predict Risk
+                </button>
+            </form>
+
+            {% if result %}
+            <div class="mt-5 pt-4 border-top">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <h4 class="fw-bold mb-0">Diagnostic Output</h4>
+                    <a href="/download_pdf?age={{age}}&glucose={{glucose}}&sys_bp={{sys_bp}}&dia_bp={{dia_bp}}&cholesterol={{cholesterol}}&h_risk={{heart_risk}}&h_prob={{heart_proba}}&d_risk={{diabetes_risk}}&d_prob={{diabetes_proba}}" class="btn btn-success fw-bold rounded-pill">
+                        <i class="fa-solid fa-file-pdf me-2"></i>Download Clinical PDF Report
+                    </a>
                 </div>
                 
-                <!-- EXACT REGISTERED PROJECT TITLE -->
-                <h1 class="fw-extrabold display-6 mb-3 text-dark px-2">
-                    Hybrid Multitasking Heart Disease and Diabetic Disease Preventive Healthcare
-                </h1>
-                
-                <p class="text-secondary fs-6 max-w-700 mx-auto mb-4">
-                    Dual Disease Risk Prediction System using Shared Multi-Task Attention Network Layers
-                </p>
-                <div class="d-flex justify-content-center gap-3">
-                    <button onclick="switchSection('joint')" class="btn btn-medai px-5 py-3 w-auto">
-                        <i class="fa-solid fa-stethoscope me-2"></i>START HEALTH ASSESSMENT
-                    </button>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in heart_risk else 'bg-success-subtle border-success' }}">
+                            <small class="text-secondary fw-bold d-block mb-1">TASK 1: HEART DISEASE RISK</small>
+                            <h2 class="{{ 'text-danger' if 'HIGH' in heart_risk else 'text-success' }} fw-bold mb-1">{{ heart_risk }}</h2>
+                            <span class="badge bg-white text-dark border">Confidence: {{ heart_proba }}%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in diabetes_risk else 'bg-success-subtle border-success' }}">
+                            <small class="text-secondary fw-bold d-block mb-1">TASK 2: DIABETES RISK</small>
+                            <h2 class="{{ 'text-danger' if 'HIGH' in diabetes_risk else 'text-success' }} fw-bold mb-1">{{ diabetes_risk }}</h2>
+                            <span class="badge bg-white text-dark border">Confidence: {{ diabetes_proba }}%</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- METRIC CARDS -->
-            <div class="row g-3 mb-4">
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-num">95.8%</div>
-                        <div class="stat-label">Model Accuracy</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-num">2-in-1</div>
-                        <div class="stat-label">Multi-Task Model</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-num">Heart & Diabetes</div>
-                        <div class="stat-label">Joint Risk Assessment</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="stat-card">
-                        <div class="stat-num">Deep Learning</div>
-                        <div class="stat-label">Attention Layer</div>
-                    </div>
+                <!-- SHARE RESULT BUTTON -->
+                <div class="text-center mt-4">
+                    <p class="fw-bold mb-2 small text-secondary">Help others check their risk:</p>
+                    <a href="https://api.whatsapp.com/send?text=I%20just%20checked%20my%20health%20risk%20assessment%20on%20this%20AI%20Portal.%20Check%20yours%20here:%20https://hybrid-multitask-health-predictor.onrender.com" target="_blank" class="btn btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp fs-5"></i> Share Assessment Link on WhatsApp
+                    </a>
                 </div>
             </div>
+            {% endif %}
         </div>
-
-        <!-- SECTION 2: PREDICT FORM & OUTPUTS -->
-        <div id="sec-joint" class="d-none">
-            <div class="glass-card mx-auto" style="max-width: 800px;">
-                <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-                    <div>
-                        <span class="badge bg-primary text-white fw-bold px-3 py-1 rounded-pill mb-1">Clinical Form</span>
-                        <h4 class="fw-bold text-dark mb-0">Patient Health Input Panel</h4>
-                    </div>
-                    <span class="fs-2">📋</span>
-                </div>
-
-                <form action="/predict" method="POST">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label-custom">Patient Age (Years):</label>
-                            <input type="number" name="age" class="form-control form-control-custom" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label-custom">Fasting Glucose (mg/dL):</label>
-                            <input type="number" name="glucose" class="form-control form-control-custom" placeholder="e.g. 120" value="{{ glucose if result else '' }}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label-custom">Systolic BP (mmHg):</label>
-                            <input type="number" name="sys_bp" class="form-control form-control-custom" placeholder="e.g. 130" value="{{ sys_bp if result else '' }}" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label-custom">Diastolic BP (mmHg):</label>
-                            <input type="number" name="dia_bp" class="form-control form-control-custom" placeholder="e.g. 85" value="{{ dia_bp if result else '' }}" required>
-                        </div>
-                        <div class="col-12">
-                            <label class="form-label-custom">Serum Cholesterol (mg/dL):</label>
-                            <input type="number" name="cholesterol" class="form-control form-control-custom" placeholder="e.g. 200" value="{{ cholesterol if result else '' }}" required>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-medai mt-4"><i class="fa-solid fa-play me-2"></i>PREDICT RISK RESULTS</button>
-                </form>
-
-                {% if result %}
-                <!-- DIAGNOSTIC RESULTS -->
-                <div class="mt-4 pt-3 border-top">
-                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                        <h4 class="fw-bold text-dark mb-0">Assessment Output</h4>
-                        <a href="/download_pdf?age={{age}}&glucose={{glucose}}&sys_bp={{sys_bp}}&dia_bp={{dia_bp}}&cholesterol={{cholesterol}}&h_risk={{heart_risk}}&h_prob={{heart_proba}}&d_risk={{diabetes_risk}}&d_prob={{diabetes_proba}}" class="btn btn-success fw-bold px-4 rounded-pill shadow-sm"><i class="fa-solid fa-file-pdf me-2"></i>Download PDF Report</a>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in heart_risk else 'bg-success-subtle border-success' }}">
-                                <small class="text-secondary fw-bold d-block mb-1">TASK 1: HEART DISEASE RISK</small>
-                                <h2 class="{{ 'text-danger' if 'HIGH' in heart_risk else 'text-success' }} fw-bold mb-1">{{ heart_risk }}</h2>
-                                <span class="badge bg-white text-dark border fw-bold">Confidence: {{ heart_proba }}%</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in diabetes_risk else 'bg-success-subtle border-success' }}">
-                                <small class="text-secondary fw-bold d-block mb-1">TASK 2: DIABETES RISK</small>
-                                <h2 class="{{ 'text-danger' if 'HIGH' in diabetes_risk else 'text-success' }} fw-bold mb-1">{{ diabetes_risk }}</h2>
-                                <span class="badge bg-white text-dark border fw-bold">Confidence: {{ diabetes_proba }}%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- SECTION 3: ARCHITECTURE -->
-        <div id="sec-tech" class="d-none">
-            <div class="glass-card mx-auto text-center" style="max-width: 700px;">
-                <h4 class="fw-bold text-dark mb-3"><i class="fa-solid fa-sitemap text-primary me-2"></i>Multi-Task Neural Network Pipeline</h4>
-                <p class="text-secondary">Input Parameters ➔ Dense Layers ➔ Shared Attention Mechanism ➔ Dual Output Heads (Heart & Diabetes Risk)</p>
-            </div>
-        </div>
-
-        <!-- SECTION 4: CONTACT -->
-        <div id="sec-contact" class="d-none">
-            <div class="glass-card text-center">
-                <h4 class="fw-bold text-dark mb-2">Project Guidance & Support</h4>
-                <p class="text-secondary">Department of CSE (AI) • Meerut Institute of Engineering & Technology (MIET)</p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER WITH PERSONAL BRANDING & CONTACT -->
     <footer class="text-center">
         <div class="container">
-            <p class="fw-bold text-secondary mb-1">Preventive Healthcare AI Project</p>
-            <small class="text-muted">© 2026 Hybrid Multitasking Preventive Healthcare Portal</small>
+            <h6 class="fw-bold text-dark mb-1">Hybrid Multitasking Healthcare AI</h6>
+            <p class="text-secondary small mb-2">Developed by: <strong>SelfStudyNotes</strong></p>
+            <p class="text-muted small mb-3">📧 Contact/Support: <a href="mailto:selfstudynotes01@gmail.com" class="text-decoration-none">selfstudynotes01@gmail.com</a></p>
+            <small class="text-muted">© 2026 Preventive Healthcare Assessment Portal • All Rights Reserved</small>
         </div>
     </footer>
 
-    <script>
-        function switchSection(secId) {
-            const secs = ['home', 'joint', 'tech', 'contact'];
-            secs.forEach(s => {
-                let el = document.getElementById('sec-' + s);
-                if (el) el.classList.add('d-none');
-                let t = document.getElementById('tab-' + s);
-                if(t) t.classList.remove('active');
-            });
-
-            let targetSec = document.getElementById('sec-' + secId);
-            if (targetSec) targetSec.classList.remove('d-none');
-            
-            let activeTab = document.getElementById('tab-' + secId);
-            if(activeTab) activeTab.classList.add('active');
-        }
-
-        {% if result %}
-            switchSection('joint');
-        {% endif %}
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 """
@@ -417,8 +320,8 @@ def download_pdf():
         sub_style = ParagraphStyle('SubStyle', parent=styles['Normal'], fontSize=9, textColor=colors.HexColor('#475569'), spaceAfter=15)
 
         elements = []
-        elements.append(Paragraph("Hybrid Multitasking Health Assessment Report", title_style))
-        elements.append(Paragraph("Preventive Healthcare Multi-Task Clinical Assessment", sub_style))
+        elements.append(Paragraph("Hybrid Multitasking Preventive Healthcare Report", title_style))
+        elements.append(Paragraph("Developed by: SelfStudyNotes (selfstudynotes01@gmail.com)", sub_style))
         elements.append(Spacer(1, 10))
 
         patient_data = [
@@ -457,7 +360,7 @@ def download_pdf():
 
         doc.build(elements)
         buffer.seek(0)
-        return send_file(buffer, as_attachment=True, download_name="Preventive_Health_Report.pdf", mimetype="application/pdf")
+        return send_file(buffer, as_attachment=True, download_name="Clinical_Preventive_Health_Report.pdf", mimetype="application/pdf")
     except Exception as e:
         return f"PDF Error: {e}"
 
