@@ -498,41 +498,44 @@ def predict():
             heart_p = float(preds[0][0][0]) * 100
             diabetes_p = float(preds[1][0][0]) * 100
         else:
-            age_factor = (age - 18) / 82.0 * 15.0
-            
+            # Dynamic Age Weight Factor (Calculates distinct impact per year of age)
+            age_weight = (age - 10) * 0.42
+
             # --- HEART DISEASE & BP EVALUATION ---
             if sys_bp < 90 or dia_bp < 60:
                 heart_risk = "CRITICAL HYPOTENSION RISK (LOW BP)"
-                heart_p = round(75.0 + (90 - sys_bp)*0.3, 1)
+                # Age linearly impacts low BP vulnerability
+                heart_p = round(65.0 + (90 - sys_bp)*0.25 + age_weight, 1)
             elif sys_bp >= 130 or dia_bp >= 85 or cholesterol >= 200:
                 heart_risk = "HIGH CARDIOVASCULAR RISK"
-                h_score = 45.0 + age_factor + (sys_bp - 120)*0.4 + (cholesterol - 190)*0.2
-                heart_p = min(round(h_score, 1), 98.5)
+                h_score = 42.0 + age_weight + (sys_bp - 120)*0.35 + (cholesterol - 190)*0.18
+                heart_p = round(h_score, 1)
             else:
                 heart_risk = "OPTIMAL / LOW RISK"
-                heart_p = max(round(12.0 + age_factor, 1), 8.5)
+                heart_p = round(10.0 + age_weight, 1)
 
             # --- DIABETES & GLUCOSE EVALUATION ---
             if glucose < 70:
                 diabetes_risk = "CRITICAL HYPOGLYCEMIA RISK (LOW SUGAR)"
-                diabetes_p = round(80.0 + (70 - glucose)*0.25, 1)
+                # Age linearly impacts hypoglycemia vulnerability
+                diabetes_p = round(68.0 + (70 - glucose)*0.22 + (age_weight * 0.8), 1)
             elif glucose >= 126:
                 diabetes_risk = "HIGH DIABETES RISK (HYPERGLYCEMIA)"
-                d_score = 55.0 + age_factor + (glucose - 120)*0.3
-                diabetes_p = min(round(d_score, 1), 99.0)
+                d_score = 52.0 + age_weight + (glucose - 120)*0.28
+                diabetes_p = round(d_score, 1)
             elif glucose >= 100:
                 diabetes_risk = "PREDIABETES RISK (ELEVATED)"
-                diabetes_p = round(35.0 + age_factor + (glucose - 100)*0.5, 1)
+                diabetes_p = round(32.0 + age_weight + (glucose - 100)*0.45, 1)
             else:
                 diabetes_risk = "OPTIMAL / LOW RISK"
-                diabetes_p = max(round(10.0 + age_factor, 1), 6.5)
+                diabetes_p = round(8.0 + age_weight, 1)
 
         return render_template_string(
             HTML_TEMPLATE,
             result=True,
             age=int(age), glucose=int(glucose), sys_bp=int(sys_bp), dia_bp=int(dia_bp), cholesterol=int(cholesterol),
-            heart_risk=heart_risk, heart_proba=min(heart_p, 99.9),
-            diabetes_risk=diabetes_risk, diabetes_proba=min(diabetes_p, 99.9)
+            heart_risk=heart_risk, heart_proba=min(max(heart_p, 5.0), 99.5),
+            diabetes_risk=diabetes_risk, diabetes_proba=min(max(diabetes_p, 5.0), 99.5)
         )
     except Exception as e:
         return f"Prediction Error: {e}"
