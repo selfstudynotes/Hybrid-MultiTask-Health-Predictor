@@ -63,7 +63,7 @@ HTML_TEMPLATE = """
         }
 
         .navbar-custom {
-            background: rgba(9, 13, 22, 0.92);
+            background: rgba(9, 13, 22, 0.95);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--card-border);
         }
@@ -73,7 +73,7 @@ HTML_TEMPLATE = """
             border: 1px solid rgba(56, 189, 248, 0.35);
             color: #38bdf8;
             font-weight: 700;
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 30px;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -126,9 +126,17 @@ HTML_TEMPLATE = """
 
         .form-label-custom {
             color: #cbd5e1;
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .range-hint {
+            display: block;
+            font-size: 0.75rem;
+            color: #38bdf8;
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .form-control-custom {
@@ -194,6 +202,14 @@ HTML_TEMPLATE = """
             padding: 1rem 1.5rem;
         }
 
+        .diet-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            height: 100%;
+        }
+
         footer {
             background: rgba(9, 13, 22, 0.98);
             border-top: 1px solid var(--card-border);
@@ -211,7 +227,17 @@ HTML_TEMPLATE = """
                 <span class="fs-3">🧬</span>
                 <span class="fw-bold text-white fs-5">MedAI Engine</span>
             </a>
-            <div class="ms-auto d-flex gap-2">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navContent">
+                <ul class="navbar-nav me-auto ms-3 mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link text-slate-300" href="#predict-section">Diagnostics</a></li>
+                    <li class="nav-item"><a class="nav-link text-slate-300" href="#diet-section">Diet & Nutrition</a></li>
+                    <li class="nav-item"><a class="nav-link text-slate-300" href="#prevention-section">Prevention Guidelines</a></li>
+                    <li class="nav-item"><a class="nav-link text-slate-300" href="#faq-section">Clinical FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link text-slate-300" href="#author-section">Research Team</a></li>
+                </ul>
                 <a href="#author-section" class="dev-badge">
                     <i class="fa-solid fa-user-graduate me-1"></i> Sakshi Sharma (CSE AI)
                 </a>
@@ -222,7 +248,7 @@ HTML_TEMPLATE = """
     <!-- HERO HEADER -->
     <div class="container text-center my-5">
         <span class="badge bg-primary-subtle text-info border border-info px-3 py-2 rounded-pill mb-3">
-            🔥 100% Free Clinical AI Health Risk Assessment
+            🔥 Joint Neural Diagnostic & Health Guidance System
         </span>
         
         <h1 class="hero-title display-5 mb-3 px-2">
@@ -230,15 +256,15 @@ HTML_TEMPLATE = """
         </h1>
         
         <p class="text-secondary fs-6 max-w-700 mx-auto mb-4">
-            Joint Disease Assessment Powered by Shared Neural Attention Networks Trained on 10,000+ Verified Clinical Records.
+            Clinical-Grade Multi-Disease Evaluation, Personalized Nutrition Recommendations, and Prevention Protocols.
         </p>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
             <a href="#predict-section" class="btn btn-primary fw-bold px-4 py-2 rounded-pill">
-                <i class="fa-solid fa-stethoscope me-2"></i>Run Free AI Scan Now
+                <i class="fa-solid fa-stethoscope me-2"></i>Run Free AI Risk Assessment
             </a>
             <a href="https://api.whatsapp.com/send?text=Check%20your%20Heart%20%26%20Diabetes%20risk%20instantly%20using%20this%20AI%20Health%20Portal:%20https://hybrid-multitask-health-predictor.onrender.com" target="_blank" class="btn btn-whatsapp rounded-pill">
-                <i class="fa-brands fa-whatsapp fs-5"></i> Share Report Tool on WhatsApp
+                <i class="fa-brands fa-whatsapp fs-5"></i> Share Portal on WhatsApp
             </a>
         </div>
 
@@ -274,45 +300,15 @@ HTML_TEMPLATE = """
         </div>
     </div>
 
-    <!-- METRICS -->
-    <div class="container mb-5">
-        <div class="row g-3">
-            <div class="col-md-3 col-6">
-                <div class="stat-card">
-                    <div class="stat-num">95.8%</div>
-                    <small class="text-secondary fw-bold">Verified Accuracy</small>
-                </div>
-            </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-card">
-                    <div class="stat-num">10,000+</div>
-                    <small class="text-secondary fw-bold">Validated Patient Data</small>
-                </div>
-            </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-card">
-                    <div class="stat-num">2-in-1 AI</div>
-                    <small class="text-secondary fw-bold">Joint Multi-Task Layer</small>
-                </div>
-            </div>
-            <div class="col-md-3 col-6">
-                <div class="stat-card">
-                    <div class="stat-num">Instant</div>
-                    <small class="text-secondary fw-bold">Free PDF Report</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- MAIN CONTAINER -->
     <div class="container">
         
-        <!-- PREDICTION SECTION -->
-        <div id="predict-section" class="glass-card mx-auto" style="max-width: 850px;">
+        <!-- PREDICTION SECTION WITH EXPLICIT PARAMETER RANGES & MEANINGS -->
+        <div id="predict-section" class="glass-card mx-auto" style="max-width: 900px;">
             <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary">
                 <div>
                     <span class="badge bg-info text-dark fw-bold px-3 py-1 rounded-pill mb-1">Clinical Diagnostics</span>
-                    <h4 class="fw-bold text-white mb-0">Enter Clinical Parameters</h4>
+                    <h4 class="fw-bold text-white mb-0">Biomarker Inputs with Clinical Ranges</h4>
                 </div>
                 <span class="fs-2 text-info"><i class="fa-solid fa-microchip"></i></span>
             </div>
@@ -320,36 +316,41 @@ HTML_TEMPLATE = """
             <form action="/predict#predict-section" method="POST">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label-custom">Patient Age (Years):</label>
+                        <label class="form-label-custom">1. Patient Age (Years)</label>
+                        <span class="range-hint">📍 Range: 18 - 100 Yrs | Baseline demographic indicator</span>
                         <input type="number" name="age" class="form-control form-control-custom" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label-custom">Fasting Glucose (mg/dL):</label>
-                        <input type="number" name="glucose" class="form-control form-control-custom" placeholder="e.g. 120" value="{{ glucose if result else '' }}" required>
+                        <label class="form-label-custom">2. Fasting Glucose Level (mg/dL)</label>
+                        <span class="range-hint">📍 Normal: 70–99 | Prediabetes: 100–125 | High: ≥126</span>
+                        <input type="number" name="glucose" class="form-control form-control-custom" placeholder="e.g. 110" value="{{ glucose if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label-custom">Systolic BP (mmHg):</label>
-                        <input type="number" name="sys_bp" class="form-control form-control-custom" placeholder="e.g. 130" value="{{ sys_bp if result else '' }}" required>
+                        <label class="form-label-custom">3. Systolic Blood Pressure (mmHg)</label>
+                        <span class="range-hint">📍 Normal: <120 | Elevated: 120–129 | High: ≥130</span>
+                        <input type="number" name="sys_bp" class="form-control form-control-custom" placeholder="e.g. 125" value="{{ sys_bp if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label-custom">Diastolic BP (mmHg):</label>
-                        <input type="number" name="dia_bp" class="form-control form-control-custom" placeholder="e.g. 85" value="{{ dia_bp if result else '' }}" required>
+                        <label class="form-label-custom">4. Diastolic Blood Pressure (mmHg)</label>
+                        <span class="range-hint">📍 Normal: <80 | Elevated: 80–89 | High: ≥90</span>
+                        <input type="number" name="dia_bp" class="form-control form-control-custom" placeholder="e.g. 82" value="{{ dia_bp if result else '' }}" required>
                     </div>
                     <div class="col-12">
-                        <label class="form-label-custom">Serum Cholesterol (mg/dL):</label>
-                        <input type="number" name="cholesterol" class="form-control form-control-custom" placeholder="e.g. 200" value="{{ cholesterol if result else '' }}" required>
+                        <label class="form-label-custom">5. Serum Cholesterol (mg/dL)</label>
+                        <span class="range-hint">📍 Desirable: <200 | Borderline High: 200–239 | High: ≥240</span>
+                        <input type="number" name="cholesterol" class="form-control form-control-custom" placeholder="e.g. 195" value="{{ cholesterol if result else '' }}" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN JOINT NEURAL PREDICTION</button>
+                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN DUAL NEURAL RISK EVALUATION</button>
             </form>
 
             {% if result %}
             <div class="mt-5 pt-4 border-top border-secondary">
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                    <h4 class="fw-bold text-white mb-0">Diagnostic Assessment Output</h4>
+                    <h4 class="fw-bold text-white mb-0">Diagnostic Assessment Result</h4>
                     <a href="/download_pdf?age={{age}}&glucose={{glucose}}&sys_bp={{sys_bp}}&dia_bp={{dia_bp}}&cholesterol={{cholesterol}}&h_risk={{heart_risk}}&h_prob={{heart_proba}}&d_risk={{diabetes_risk}}&d_prob={{diabetes_proba}}" class="btn btn-success fw-bold rounded-pill px-4">
-                        <i class="fa-solid fa-file-pdf me-2"></i>Download Clinical Report
+                        <i class="fa-solid fa-file-pdf me-2"></i>Download PDF Certificate
                     </a>
                 </div>
                 
@@ -369,18 +370,118 @@ HTML_TEMPLATE = """
                         </div>
                     </div>
                 </div>
-
-                <div class="text-center mt-4">
-                    <a href="https://api.whatsapp.com/send?text=Check%20your%20Heart%20%26%20Diabetes%20risk%20instantly%20using%20this%20AI%20Health%20Portal:%20https://hybrid-multitask-health-predictor.onrender.com" target="_blank" class="btn btn-whatsapp">
-                        <i class="fa-brands fa-whatsapp fs-5"></i> Share Assessment Tool on WhatsApp
-                    </a>
-                </div>
             </div>
             {% endif %}
         </div>
 
-        <!-- AUTHOR & PROJECT DETAILS SECTION -->
-        <div id="author-section" class="glass-card mx-auto mt-5" style="max-width: 850px;">
+        <!-- NEW PAGE 2: DIET & NUTRITION CHART SECTION -->
+        <div id="diet-section" class="glass-card mx-auto mt-5" style="max-width: 900px;">
+            <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
+                <span class="fs-2 text-warning"><i class="fa-solid fa-utensils"></i></span>
+                <div>
+                    <h4 class="fw-bold text-white mb-0">Personalized Dietary & Nutrition Chart</h4>
+                    <small class="text-secondary">Clinical recommendations based on Heart & Diabetes risk evaluation</small>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- HIGH RISK DIET -->
+                <div class="col-md-6">
+                    <div class="diet-card border-danger">
+                        <span class="badge bg-danger text-white mb-2">High Risk / Elevated Biomarkers</span>
+                        <h5 class="fw-bold text-white mb-3">Therapeutic Lifestyle Diet Plan</h5>
+                        <ul class="text-secondary small ps-3 mb-0" style="line-height: 1.8;">
+                            <li><strong>Limit Sodium & Trans Fats:</strong> Keep daily salt intake <2,000 mg to manage Blood Pressure.</li>
+                            <li><strong>Low Glycemic Index Foods:</strong> Replace refined sugar/white rice with oats, quinoa, and green leafy vegetables.</li>
+                            <li><strong>Heart-Healthy Fats:</strong> Shift to Extra Virgin Olive Oil, almonds, walnuts, and flaxseeds.</li>
+                            <li><strong>Portion Control & Hydration:</strong> Consume 3-4 liters of water daily; maintain small frequent meals.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- LOW RISK DIET -->
+                <div class="col-md-6">
+                    <div class="diet-card border-success">
+                        <span class="badge bg-success text-white mb-2">Low Risk / Normal Biomarkers</span>
+                        <h5 class="fw-bold text-white mb-3">Maintenance & Preventive Nutrition</h5>
+                        <ul class="text-secondary small ps-3 mb-0" style="line-height: 1.8;">
+                            <li><strong>Balanced Macro Split:</strong> 50% Complex Carbs, 25% Lean Protein, 25% Healthy Fats.</li>
+                            <li><strong>High Fiber Intake:</strong> Minimum 30g daily dietary fiber from legumes, chia seeds, and berries.</li>
+                            <li><strong>Avoid Hidden Sugars:</strong> Minimize packaged fruit juices, soft drinks, and processed snacks.</li>
+                            <li><strong>Micronutrient Boost:</strong> Include antioxidant-rich foods like green tea, spinach, and turmeric.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW PAGE 3: PREVENTIVE HEALTHCARE PROTOCOLS SECTION -->
+        <div id="prevention-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
+            <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
+                <span class="fs-2 text-info"><i class="fa-solid fa-heart-pulse"></i></span>
+                <div>
+                    <h4 class="fw-bold text-white mb-0">Prevention & Action Guidelines</h4>
+                    <small class="text-secondary">Protocol for handling stable, high, or fluctuating biomarker readings</small>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
+                        <h6 class="fw-bold text-info"><i class="fa-solid fa-person-running me-2"></i>Physical Activity</h6>
+                        <small class="text-secondary d-block">Minimum 150 minutes of moderate aerobic exercise (brisk walking, cycling) per week to maintain arterial elasticity and insulin sensitivity.</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
+                        <h6 class="fw-bold text-warning"><i class="fa-solid fa-triangle-exclamation me-2"></i>Fluctuating Biomarkers</h6>
+                        <small class="text-secondary d-block">If glucose or BP fluctuates frequently, maintain a daily logging journal and consult a cardiologist/endocrinologist for HbA1c testing.</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
+                        <h6 class="fw-bold text-success"><i class="fa-solid fa-bed me-2"></i>Rest & Stress Reduction</h6>
+                        <small class="text-secondary d-block">7-8 hours of sound sleep reduces cortisol spikes, directly lowering systemic blood pressure and fasting glucose levels.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW PAGE 4: CLINICAL FAQ SECTION -->
+        <div id="faq-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
+            <h4 class="fw-bold text-white mb-4"><i class="fa-solid fa-circle-question text-info me-2"></i>Clinical Parameters FAQ</h4>
+            
+            <div class="accordion accordion-flush" id="faqAccordion">
+                <div class="accordion-item bg-dark text-white border-secondary mb-2 rounded-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-dark text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            Why are Heart Disease and Diabetes assessed together?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary small">
+                            Cardiovascular conditions and Type 2 Diabetes share common metabolic risk pathways, including insulin resistance, hypertension, and dyslipidemia. Our hybrid neural attention architecture leverages shared feature representations for higher diagnostic precision.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item bg-dark text-white border-secondary mb-2 rounded-3">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed bg-dark text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            What should I do if my Fasting Glucose is high but Blood Pressure is normal?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary small">
+                            An isolated high glucose reading indicates early glycemic imbalance. Follow the High-Risk Diet plan focused on low glycemic index foods, increase aerobic physical activity, and get a confirmed laboratory HbA1c test.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTHOR & RESEARCH TEAM SECTION -->
+        <div id="author-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
                 <span class="fs-2 text-info"><i class="fa-solid fa-graduation-cap"></i></span>
                 <div>
@@ -440,6 +541,7 @@ HTML_TEMPLATE = """
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 """
@@ -507,7 +609,7 @@ def download_pdf():
 
         patient_data = [
             ['Clinical Parameter', 'Input Value', 'Reference Standard'],
-            ['Age', f"{age} Years", '-'],
+            ['Age', f"{age} Years", '18 - 100 Years'],
             ['Fasting Glucose', f"{glucose} mg/dL", '< 100 mg/dL'],
             ['Systolic BP', f"{sys_bp} mmHg", '< 120 mmHg'],
             ['Diastolic BP', f"{dia_bp} mmHg", '< 80 mmHg'],
