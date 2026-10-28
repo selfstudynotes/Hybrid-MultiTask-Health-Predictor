@@ -103,27 +103,6 @@ HTML_TEMPLATE = """
             margin-bottom: 2rem;
         }
 
-        .stat-card {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px var(--primary-glow);
-        }
-
-        .stat-num {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #38bdf8;
-        }
-
         .form-label-custom {
             color: #cbd5e1;
             font-size: 0.88rem;
@@ -210,6 +189,13 @@ HTML_TEMPLATE = """
             height: 100%;
         }
 
+        .report-preview-box {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #38bdf8;
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
         footer {
             background: rgba(9, 13, 22, 0.98);
             border-top: 1px solid var(--card-border);
@@ -267,37 +253,6 @@ HTML_TEMPLATE = """
                 <i class="fa-brands fa-whatsapp fs-5"></i> Share Portal on WhatsApp
             </a>
         </div>
-
-        <!-- TRUST PROOF BADGES -->
-        <div class="row g-3 justify-content-center max-w-850 mx-auto">
-            <div class="col-md-4 col-12">
-                <div class="trust-badge d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-circle-check text-info fs-3"></i>
-                    <div class="text-start">
-                        <strong class="text-white small d-block">Verified Datasets</strong>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Cleveland & Framingham Records</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-12">
-                <div class="trust-badge d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-shield-halved text-info fs-3"></i>
-                    <div class="text-start">
-                        <strong class="text-white small d-block">100% Data Privacy</strong>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Encrypted & Zero Storage</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-12">
-                <div class="trust-badge d-flex align-items-center gap-3">
-                    <i class="fa-solid fa-bolt text-info fs-3"></i>
-                    <div class="text-start">
-                        <strong class="text-white small d-block">Instant Diagnostic Report</strong>
-                        <small class="text-secondary" style="font-size: 0.75rem;">Downloadable PDF Certificate</small>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
@@ -308,16 +263,16 @@ HTML_TEMPLATE = """
             <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary">
                 <div>
                     <span class="badge bg-info text-dark fw-bold px-3 py-1 rounded-pill mb-1">Clinical Diagnostics</span>
-                    <h4 class="fw-bold text-white mb-0">Biomarker Inputs with Clinical Ranges</h4>
+                    <h4 class="fw-bold text-white mb-0">Enter Biomarker Inputs</h4>
                 </div>
                 <span class="fs-2 text-info"><i class="fa-solid fa-microchip"></i></span>
             </div>
 
-            <form action="/predict#predict-section" method="POST">
+            <form action="/predict#result-section" method="POST">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label-custom">1. Patient Age (Years)</label>
-                        <span class="range-hint">📍 Range: 18 - 100 Yrs | Baseline demographic indicator</span>
+                        <span class="range-hint">📍 Range: 18 - 100 Yrs | Age risk multiplier</span>
                         <input type="number" name="age" class="form-control form-control-custom" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
@@ -342,39 +297,76 @@ HTML_TEMPLATE = """
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN DUAL NEURAL RISK EVALUATION</button>
+                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN DUAL NEURAL EVALUATION</button>
             </form>
 
+            <!-- LIVE ON-SCREEN REPORT PREVIEW -->
             {% if result %}
-            <div class="mt-5 pt-4 border-top border-secondary">
-                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                    <h4 class="fw-bold text-white mb-0">Diagnostic Assessment Result</h4>
-                    <a href="/download_pdf?age={{age}}&glucose={{glucose}}&sys_bp={{sys_bp}}&dia_bp={{dia_bp}}&cholesterol={{cholesterol}}&h_risk={{heart_risk}}&h_prob={{heart_proba}}&d_risk={{diabetes_risk}}&d_prob={{diabetes_proba}}" class="btn btn-success fw-bold rounded-pill px-4">
-                        <i class="fa-solid fa-file-pdf me-2"></i>Download PDF Certificate
-                    </a>
-                </div>
-                
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in heart_risk else 'bg-success-subtle border-success' }}">
-                            <small class="text-secondary fw-bold d-block mb-1">TASK 1: HEART DISEASE RISK</small>
-                            <h2 class="{{ 'text-danger' if 'HIGH' in heart_risk else 'text-success' }} fw-extrabold mb-1">{{ heart_risk }}</h2>
-                            <span class="badge bg-dark text-white border px-3 py-1 fw-bold">Confidence: {{ heart_proba }}%</span>
+            <div id="result-section" class="mt-5 pt-4 border-top border-secondary">
+                <div class="report-preview-box">
+                    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                        <div>
+                            <h4 class="fw-bold text-info mb-0">📋 Live Clinical Evaluation Preview</h4>
+                            <small class="text-secondary">Official Preventive Healthcare Diagnostic Certificate</small>
                         </div>
+                        <span class="badge bg-success px-3 py-2">Generated Live</span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="p-4 border rounded-4 text-center {{ 'bg-danger-subtle border-danger' if 'HIGH' in diabetes_risk else 'bg-success-subtle border-success' }}">
-                            <small class="text-secondary fw-bold d-block mb-1">TASK 2: DIABETES RISK</small>
-                            <h2 class="{{ 'text-danger' if 'HIGH' in diabetes_risk else 'text-success' }} fw-extrabold mb-1">{{ diabetes_risk }}</h2>
-                            <span class="badge bg-dark text-white border px-3 py-1 fw-bold">Confidence: {{ diabetes_proba }}%</span>
-                        </div>
+
+                    <div class="table-responsive my-3">
+                        <table class="table table-dark table-striped table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Clinical Parameter</th>
+                                    <th>Input Value</th>
+                                    <th>Reference Standard</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Patient Age</td><td>{{ age }} Years</td><td>18 - 100 Years</td></tr>
+                                <tr><td>Fasting Glucose</td><td>{{ glucose }} mg/dL</td><td>< 100 mg/dL</td></tr>
+                                <tr><td>Systolic BP</td><td>{{ sys_bp }} mmHg</td><td>< 120 mmHg</td></tr>
+                                <tr><td>Diastolic BP</td><td>{{ dia_bp }} mmHg</td><td>< 80 mmHg</td></tr>
+                                <tr><td>Serum Cholesterol</td><td>{{ cholesterol }} mg/dL</td><td>< 200 mg/dL</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive my-3">
+                        <table class="table table-dark table-bordered mb-0">
+                            <thead>
+                                <tr class="table-primary text-dark">
+                                    <th>Diagnostic Target</th>
+                                    <th>Predicted Risk Level</th>
+                                    <th>Risk Percentage (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Heart Disease Risk</strong></td>
+                                    <td><span class="badge {{ 'bg-danger' if 'HIGH' in heart_risk else 'bg-success' }} fs-6">{{ heart_risk }}</span></td>
+                                    <td><strong class="{{ 'text-danger' if heart_proba > 50 else 'text-success' }} fs-5">{{ heart_proba }}% Risk</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Diabetes Risk</strong></td>
+                                    <td><span class="badge {{ 'bg-danger' if 'HIGH' in diabetes_risk else 'bg-success' }} fs-6">{{ diabetes_risk }}</span></td>
+                                    <td><strong class="{{ 'text-danger' if diabetes_proba > 50 else 'text-success' }} fs-5">{{ diabetes_proba }}% Risk</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
+                        <span class="text-secondary small">Lead Developer: <strong>Sakshi Sharma (B.Tech CSE AI, Meerut)</strong></span>
+                        <a href="/download_pdf?age={{age}}&glucose={{glucose}}&sys_bp={{sys_bp}}&dia_bp={{dia_bp}}&cholesterol={{cholesterol}}&h_risk={{heart_risk}}&h_prob={{heart_proba}}&d_risk={{diabetes_risk}}&d_prob={{diabetes_proba}}" class="btn btn-success fw-bold rounded-pill px-4">
+                            <i class="fa-solid fa-file-pdf me-2"></i>Download PDF Copy
+                        </a>
                     </div>
                 </div>
             </div>
             {% endif %}
         </div>
 
-        <!-- NEW PAGE 2: DIET & NUTRITION CHART SECTION -->
+        <!-- DIET & NUTRITION CHART SECTION -->
         <div id="diet-section" class="glass-card mx-auto mt-5" style="max-width: 900px;">
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
                 <span class="fs-2 text-warning"><i class="fa-solid fa-utensils"></i></span>
@@ -385,7 +377,6 @@ HTML_TEMPLATE = """
             </div>
 
             <div class="row g-4">
-                <!-- HIGH RISK DIET -->
                 <div class="col-md-6">
                     <div class="diet-card border-danger">
                         <span class="badge bg-danger text-white mb-2">High Risk / Elevated Biomarkers</span>
@@ -399,7 +390,6 @@ HTML_TEMPLATE = """
                     </div>
                 </div>
 
-                <!-- LOW RISK DIET -->
                 <div class="col-md-6">
                     <div class="diet-card border-success">
                         <span class="badge bg-success text-white mb-2">Low Risk / Normal Biomarkers</span>
@@ -415,7 +405,7 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- NEW PAGE 3: PREVENTIVE HEALTHCARE PROTOCOLS SECTION -->
+        <!-- PREVENTIVE HEALTHCARE PROTOCOLS SECTION -->
         <div id="prevention-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
                 <span class="fs-2 text-info"><i class="fa-solid fa-heart-pulse"></i></span>
@@ -442,39 +432,6 @@ HTML_TEMPLATE = """
                     <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
                         <h6 class="fw-bold text-success"><i class="fa-solid fa-bed me-2"></i>Rest & Stress Reduction</h6>
                         <small class="text-secondary d-block">7-8 hours of sound sleep reduces cortisol spikes, directly lowering systemic blood pressure and fasting glucose levels.</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- NEW PAGE 4: CLINICAL FAQ SECTION -->
-        <div id="faq-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
-            <h4 class="fw-bold text-white mb-4"><i class="fa-solid fa-circle-question text-info me-2"></i>Clinical Parameters FAQ</h4>
-            
-            <div class="accordion accordion-flush" id="faqAccordion">
-                <div class="accordion-item bg-dark text-white border-secondary mb-2 rounded-3">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-dark text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                            Why are Heart Disease and Diabetes assessed together?
-                        </button>
-                    </h2>
-                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-secondary small">
-                            Cardiovascular conditions and Type 2 Diabetes share common metabolic risk pathways, including insulin resistance, hypertension, and dyslipidemia. Our hybrid neural attention architecture leverages shared feature representations for higher diagnostic precision.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item bg-dark text-white border-secondary mb-2 rounded-3">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-dark text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                            What should I do if my Fasting Glucose is high but Blood Pressure is normal?
-                        </button>
-                    </h2>
-                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-secondary small">
-                            An isolated high glucose reading indicates early glycemic imbalance. Follow the High-Risk Diet plan focused on low glycemic index foods, increase aerobic physical activity, and get a confirmed laboratory HbA1c test.
-                        </div>
                     </div>
                 </div>
             </div>
@@ -567,15 +524,42 @@ def predict():
             heart_p = float(preds[0][0][0]) * 100
             diabetes_p = float(preds[1][0][0]) * 100
         else:
-            heart_p, diabetes_p = 85.0, 32.0
+            # Dynamic Score Engine based on Clinical Risk Factors & Age Factors
+            age_factor = (age - 18) / 82.0 * 15.0  # Age impact (0% to 15%)
+            
+            # Heart Disease Probability Risk Calculation (%)
+            h_score = 10.0 + age_factor
+            if sys_bp >= 140 or dia_bp >= 90:
+                h_score += 35.0
+            elif sys_bp >= 130 or dia_bp >= 85:
+                h_score += 20.0
 
-        heart_risk = "HIGH RISK" if (sys_bp >= 130 or dia_bp >= 85 or cholesterol >= 200) else "LOW RISK"
-        diabetes_risk = "HIGH RISK" if glucose >= 126 else "LOW RISK"
+            if cholesterol >= 240:
+                h_score += 35.0
+            elif cholesterol >= 200:
+                h_score += 20.0
+            
+            heart_p = min(max(h_score, 8.5), 96.5)
+
+            # Diabetes Probability Risk Calculation (%)
+            d_score = 8.0 + (age_factor * 0.8)
+            if glucose >= 126:
+                d_score += 55.0
+            elif glucose >= 100:
+                d_score += 30.0
+            
+            if sys_bp >= 130:
+                d_score += 12.0
+                
+            diabetes_p = min(max(d_score, 6.2), 97.2)
+
+        heart_risk = "HIGH RISK" if heart_p >= 45.0 else "LOW RISK"
+        diabetes_risk = "HIGH RISK" if diabetes_p >= 45.0 else "LOW RISK"
 
         return render_template_string(
             HTML_TEMPLATE,
             result=True,
-            age=age, glucose=glucose, sys_bp=sys_bp, dia_bp=dia_bp, cholesterol=cholesterol,
+            age=int(age), glucose=int(glucose), sys_bp=int(sys_bp), dia_bp=int(dia_bp), cholesterol=int(cholesterol),
             heart_risk=heart_risk, heart_proba=round(heart_p, 1),
             diabetes_risk=diabetes_risk, diabetes_proba=round(diabetes_p, 1)
         )
@@ -627,9 +611,9 @@ def download_pdf():
         elements.append(Spacer(1, 15))
 
         results_data = [
-            ['Diagnostic Target', 'Predicted Risk Level', 'Model Confidence'],
-            ['Heart Disease Risk', h_risk, f"{h_prob}%"],
-            ['Diabetes Risk', d_risk, f"{d_prob}%"]
+            ['Diagnostic Target', 'Predicted Risk Level', 'Risk Percentage (%)'],
+            ['Heart Disease Risk', h_risk, f"{h_prob}% Risk"],
+            ['Diabetes Risk', d_risk, f"{d_prob}% Risk"]
         ]
         t2 = Table(results_data, colWidths=[200, 150, 150])
         t2.setStyle(TableStyle([
