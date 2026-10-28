@@ -115,7 +115,7 @@ HTML_TEMPLATE = """
             font-size: 0.75rem;
             color: #38bdf8;
             margin-bottom: 8px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .form-control-custom {
@@ -174,13 +174,6 @@ HTML_TEMPLATE = """
             padding: 1rem;
         }
 
-        .trust-badge {
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-        }
-
         .diet-card {
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -221,7 +214,6 @@ HTML_TEMPLATE = """
                     <li class="nav-item"><a class="nav-link text-slate-300" href="#predict-section">Diagnostics</a></li>
                     <li class="nav-item"><a class="nav-link text-slate-300" href="#diet-section">Diet & Nutrition</a></li>
                     <li class="nav-item"><a class="nav-link text-slate-300" href="#prevention-section">Prevention Guidelines</a></li>
-                    <li class="nav-item"><a class="nav-link text-slate-300" href="#faq-section">Clinical FAQs</a></li>
                     <li class="nav-item"><a class="nav-link text-slate-300" href="#author-section">Research Team</a></li>
                 </ul>
                 <a href="#author-section" class="dev-badge">
@@ -242,7 +234,7 @@ HTML_TEMPLATE = """
         </h1>
         
         <p class="text-secondary fs-6 max-w-700 mx-auto mb-4">
-            Clinical-Grade Multi-Disease Evaluation, Personalized Nutrition Recommendations, and Prevention Protocols.
+            Clinical-Grade Multi-Disease Evaluation with Validated Biological Range Checks.
         </p>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap mb-4">
@@ -258,12 +250,12 @@ HTML_TEMPLATE = """
     <!-- MAIN CONTAINER -->
     <div class="container">
         
-        <!-- PREDICTION SECTION WITH EXPLICIT PARAMETER RANGES & MEANINGS -->
+        <!-- PREDICTION SECTION WITH ACCURATE MIN-MAX CLINICAL RANGES -->
         <div id="predict-section" class="glass-card mx-auto" style="max-width: 900px;">
             <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary">
                 <div>
                     <span class="badge bg-info text-dark fw-bold px-3 py-1 rounded-pill mb-1">Clinical Diagnostics</span>
-                    <h4 class="fw-bold text-white mb-0">Enter Biomarker Inputs</h4>
+                    <h4 class="fw-bold text-white mb-0">Biomarker Input Parameters & Normal Ranges</h4>
                 </div>
                 <span class="fs-2 text-info"><i class="fa-solid fa-microchip"></i></span>
             </div>
@@ -272,32 +264,32 @@ HTML_TEMPLATE = """
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label-custom">1. Patient Age (Years)</label>
-                        <span class="range-hint">📍 Range: 18 - 100 Yrs | Age risk multiplier</span>
-                        <input type="number" name="age" class="form-control form-control-custom" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
+                        <span class="range-hint">📍 Clinical Range: 18 to 100 Years</span>
+                        <input type="number" name="age" min="18" max="100" class="form-control form-control-custom" placeholder="e.g. 45" value="{{ age if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label-custom">2. Fasting Glucose Level (mg/dL)</label>
-                        <span class="range-hint">📍 Normal: 70–99 | Prediabetes: 100–125 | High: ≥126</span>
-                        <input type="number" name="glucose" class="form-control form-control-custom" placeholder="e.g. 110" value="{{ glucose if result else '' }}" required>
+                        <span class="range-hint">📍 Normal: 70 - 99 | Prediabetes: 100 - 125 | High: ≥126</span>
+                        <input type="number" name="glucose" min="40" max="400" class="form-control form-control-custom" placeholder="e.g. 110" value="{{ glucose if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label-custom">3. Systolic Blood Pressure (mmHg)</label>
-                        <span class="range-hint">📍 Normal: <120 | Elevated: 120–129 | High: ≥130</span>
-                        <input type="number" name="sys_bp" class="form-control form-control-custom" placeholder="e.g. 125" value="{{ sys_bp if result else '' }}" required>
+                        <span class="range-hint">📍 Normal: 90 - 119 | Elevated: 120 - 129 | High: ≥130</span>
+                        <input type="number" name="sys_bp" min="60" max="240" class="form-control form-control-custom" placeholder="e.g. 125" value="{{ sys_bp if result else '' }}" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label-custom">4. Diastolic Blood Pressure (mmHg)</label>
-                        <span class="range-hint">📍 Normal: <80 | Elevated: 80–89 | High: ≥90</span>
-                        <input type="number" name="dia_bp" class="form-control form-control-custom" placeholder="e.g. 82" value="{{ dia_bp if result else '' }}" required>
+                        <span class="range-hint">📍 Normal: 60 - 79 | Elevated: 80 - 89 | High: ≥90</span>
+                        <input type="number" name="dia_bp" min="40" max="150" class="form-control form-control-custom" placeholder="e.g. 82" value="{{ dia_bp if result else '' }}" required>
                     </div>
                     <div class="col-12">
                         <label class="form-label-custom">5. Serum Cholesterol (mg/dL)</label>
-                        <span class="range-hint">📍 Desirable: <200 | Borderline High: 200–239 | High: ≥240</span>
-                        <input type="number" name="cholesterol" class="form-control form-control-custom" placeholder="e.g. 195" value="{{ cholesterol if result else '' }}" required>
+                        <span class="range-hint">📍 Normal: 120 - 199 | Borderline: 200 - 239 | High: ≥240</span>
+                        <input type="number" name="cholesterol" min="80" max="500" class="form-control form-control-custom" placeholder="e.g. 195" value="{{ cholesterol if result else '' }}" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN DUAL NEURAL EVALUATION</button>
+                <button type="submit" class="btn btn-ai mt-4"><i class="fa-solid fa-bolt me-2"></i>RUN DUAL NEURAL RISK ASSESSMENT</button>
             </form>
 
             <!-- LIVE ON-SCREEN REPORT PREVIEW -->
@@ -307,9 +299,9 @@ HTML_TEMPLATE = """
                     <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
                         <div>
                             <h4 class="fw-bold text-info mb-0">📋 Live Clinical Evaluation Preview</h4>
-                            <small class="text-secondary">Official Preventive Healthcare Diagnostic Certificate</small>
+                            <small class="text-secondary">Official Diagnostic Risk Summary</small>
                         </div>
-                        <span class="badge bg-success px-3 py-2">Generated Live</span>
+                        <span class="badge bg-success px-3 py-2">Validated Output</span>
                     </div>
 
                     <div class="table-responsive my-3">
@@ -318,15 +310,15 @@ HTML_TEMPLATE = """
                                 <tr>
                                     <th>Clinical Parameter</th>
                                     <th>Input Value</th>
-                                    <th>Reference Standard</th>
+                                    <th>Clinical Normal Range</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr><td>Patient Age</td><td>{{ age }} Years</td><td>18 - 100 Years</td></tr>
-                                <tr><td>Fasting Glucose</td><td>{{ glucose }} mg/dL</td><td>< 100 mg/dL</td></tr>
-                                <tr><td>Systolic BP</td><td>{{ sys_bp }} mmHg</td><td>< 120 mmHg</td></tr>
-                                <tr><td>Diastolic BP</td><td>{{ dia_bp }} mmHg</td><td>< 80 mmHg</td></tr>
-                                <tr><td>Serum Cholesterol</td><td>{{ cholesterol }} mg/dL</td><td>< 200 mg/dL</td></tr>
+                                <tr><td>Fasting Glucose</td><td>{{ glucose }} mg/dL</td><td>70 - 99 mg/dL</td></tr>
+                                <tr><td>Systolic BP</td><td>{{ sys_bp }} mmHg</td><td>90 - 119 mmHg</td></tr>
+                                <tr><td>Diastolic BP</td><td>{{ dia_bp }} mmHg</td><td>60 - 79 mmHg</td></tr>
+                                <tr><td>Serum Cholesterol</td><td>{{ cholesterol }} mg/dL</td><td>120 - 199 mg/dL</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -336,20 +328,36 @@ HTML_TEMPLATE = """
                             <thead>
                                 <tr class="table-primary text-dark">
                                     <th>Diagnostic Target</th>
-                                    <th>Predicted Risk Level</th>
-                                    <th>Risk Percentage (%)</th>
+                                    <th>Predicted Risk Status</th>
+                                    <th>Calculated Risk Percentage</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><strong>Heart Disease Risk</strong></td>
-                                    <td><span class="badge {{ 'bg-danger' if 'HIGH' in heart_risk else 'bg-success' }} fs-6">{{ heart_risk }}</span></td>
-                                    <td><strong class="{{ 'text-danger' if heart_proba > 50 else 'text-success' }} fs-5">{{ heart_proba }}% Risk</strong></td>
+                                    <td>
+                                        {% if 'CRITICAL' in heart_risk %}
+                                            <span class="badge bg-warning text-dark fs-6">{{ heart_risk }}</span>
+                                        {% elif 'HIGH' in heart_risk %}
+                                            <span class="badge bg-danger fs-6">{{ heart_risk }}</span>
+                                        {% else %}
+                                            <span class="badge bg-success fs-6">{{ heart_risk }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td><strong class="{{ 'text-danger' if heart_proba > 45 else 'text-success' }} fs-5">{{ heart_proba }}% Risk</strong></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Diabetes Risk</strong></td>
-                                    <td><span class="badge {{ 'bg-danger' if 'HIGH' in diabetes_risk else 'bg-success' }} fs-6">{{ diabetes_risk }}</span></td>
-                                    <td><strong class="{{ 'text-danger' if diabetes_proba > 50 else 'text-success' }} fs-5">{{ diabetes_proba }}% Risk</strong></td>
+                                    <td>
+                                        {% if 'CRITICAL' in diabetes_risk %}
+                                            <span class="badge bg-warning text-dark fs-6">{{ diabetes_risk }}</span>
+                                        {% elif 'HIGH' in diabetes_risk %}
+                                            <span class="badge bg-danger fs-6">{{ diabetes_risk }}</span>
+                                        {% else %}
+                                            <span class="badge bg-success fs-6">{{ diabetes_risk }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td><strong class="{{ 'text-danger' if diabetes_proba > 45 else 'text-success' }} fs-5">{{ diabetes_proba }}% Risk</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -371,8 +379,8 @@ HTML_TEMPLATE = """
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
                 <span class="fs-2 text-warning"><i class="fa-solid fa-utensils"></i></span>
                 <div>
-                    <h4 class="fw-bold text-white mb-0">Personalized Dietary & Nutrition Chart</h4>
-                    <small class="text-secondary">Clinical recommendations based on Heart & Diabetes risk evaluation</small>
+                    <h4 class="fw-bold text-white mb-0">Personalized Dietary & Nutrition Guidelines</h4>
+                    <small class="text-secondary">Clinical recommendations for evaluated health parameters</small>
                 </div>
             </div>
 
@@ -405,38 +413,6 @@ HTML_TEMPLATE = """
             </div>
         </div>
 
-        <!-- PREVENTIVE HEALTHCARE PROTOCOLS SECTION -->
-        <div id="prevention-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
-            <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
-                <span class="fs-2 text-info"><i class="fa-solid fa-heart-pulse"></i></span>
-                <div>
-                    <h4 class="fw-bold text-white mb-0">Prevention & Action Guidelines</h4>
-                    <small class="text-secondary">Protocol for handling stable, high, or fluctuating biomarker readings</small>
-                </div>
-            </div>
-
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
-                        <h6 class="fw-bold text-info"><i class="fa-solid fa-person-running me-2"></i>Physical Activity</h6>
-                        <small class="text-secondary d-block">Minimum 150 minutes of moderate aerobic exercise (brisk walking, cycling) per week to maintain arterial elasticity and insulin sensitivity.</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
-                        <h6 class="fw-bold text-warning"><i class="fa-solid fa-triangle-exclamation me-2"></i>Fluctuating Biomarkers</h6>
-                        <small class="text-secondary d-block">If glucose or BP fluctuates frequently, maintain a daily logging journal and consult a cardiologist/endocrinologist for HbA1c testing.</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3 border rounded-3 bg-dark border-secondary h-100">
-                        <h6 class="fw-bold text-success"><i class="fa-solid fa-bed me-2"></i>Rest & Stress Reduction</h6>
-                        <small class="text-secondary d-block">7-8 hours of sound sleep reduces cortisol spikes, directly lowering systemic blood pressure and fasting glucose levels.</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- AUTHOR & RESEARCH TEAM SECTION -->
         <div id="author-section" class="glass-card mx-auto mt-4" style="max-width: 900px;">
             <div class="d-flex align-items-center gap-3 mb-4 border-bottom border-secondary pb-3">
@@ -447,7 +423,6 @@ HTML_TEMPLATE = """
                 </div>
             </div>
 
-            <!-- MAIN AUTHOR -->
             <div class="p-3 mb-4 rounded-4 bg-dark border border-info">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <div>
@@ -462,7 +437,6 @@ HTML_TEMPLATE = """
                 </div>
             </div>
 
-            <!-- TEAM MEMBERS -->
             <h6 class="fw-bold text-info mb-3"><i class="fa-solid fa-users me-2"></i>Project Contributors</h6>
             <div class="row g-3">
                 <div class="col-md-4 col-sm-6">
@@ -516,6 +490,9 @@ def predict():
         dia_bp = float(request.form.get('dia_bp', 85))
         cholesterol = float(request.form.get('cholesterol', 210))
 
+        # Check for dangerously low / medically improbable survival values
+        is_abnormal_low = (glucose < 50) or (sys_bp < 70) or (dia_bp < 40) or (cholesterol < 70)
+
         raw_inputs = np.array([[age, glucose, sys_bp, dia_bp, cholesterol]])
         
         if scaler and model:
@@ -524,37 +501,42 @@ def predict():
             heart_p = float(preds[0][0][0]) * 100
             diabetes_p = float(preds[1][0][0]) * 100
         else:
-            # Dynamic Score Engine based on Clinical Risk Factors & Age Factors
-            age_factor = (age - 18) / 82.0 * 15.0  # Age impact (0% to 15%)
+            age_factor = (age - 18) / 82.0 * 20.0
             
-            # Heart Disease Probability Risk Calculation (%)
-            h_score = 10.0 + age_factor
+            # Heart Disease Calculation
+            h_score = 12.0 + age_factor
             if sys_bp >= 140 or dia_bp >= 90:
-                h_score += 35.0
+                h_score += 38.0
             elif sys_bp >= 130 or dia_bp >= 85:
-                h_score += 20.0
+                h_score += 22.0
 
             if cholesterol >= 240:
-                h_score += 35.0
+                h_score += 36.0
             elif cholesterol >= 200:
-                h_score += 20.0
+                h_score += 22.0
             
-            heart_p = min(max(h_score, 8.5), 96.5)
+            heart_p = min(max(h_score, 10.5), 98.0)
 
-            # Diabetes Probability Risk Calculation (%)
-            d_score = 8.0 + (age_factor * 0.8)
+            # Diabetes Calculation
+            d_score = 10.0 + (age_factor * 0.7)
             if glucose >= 126:
-                d_score += 55.0
+                d_score += 58.0
             elif glucose >= 100:
-                d_score += 30.0
+                d_score += 32.0
             
             if sys_bp >= 130:
-                d_score += 12.0
+                d_score += 15.0
                 
-            diabetes_p = min(max(d_score, 6.2), 97.2)
+            diabetes_p = min(max(d_score, 8.2), 97.5)
 
-        heart_risk = "HIGH RISK" if heart_p >= 45.0 else "LOW RISK"
-        diabetes_risk = "HIGH RISK" if diabetes_p >= 45.0 else "LOW RISK"
+        if is_abnormal_low:
+            heart_risk = "CRITICAL LOW / ABNORMAL RANGE"
+            diabetes_risk = "CRITICAL LOW / ABNORMAL RANGE"
+            heart_p = 5.0
+            diabetes_p = 5.0
+        else:
+            heart_risk = "HIGH RISK" if heart_p >= 45.0 else "LOW RISK"
+            diabetes_risk = "HIGH RISK" if diabetes_p >= 45.0 else "LOW RISK"
 
         return render_template_string(
             HTML_TEMPLATE,
@@ -592,12 +574,12 @@ def download_pdf():
         elements.append(Spacer(1, 10))
 
         patient_data = [
-            ['Clinical Parameter', 'Input Value', 'Reference Standard'],
+            ['Clinical Parameter', 'Input Value', 'Clinical Normal Range'],
             ['Age', f"{age} Years", '18 - 100 Years'],
-            ['Fasting Glucose', f"{glucose} mg/dL", '< 100 mg/dL'],
-            ['Systolic BP', f"{sys_bp} mmHg", '< 120 mmHg'],
-            ['Diastolic BP', f"{dia_bp} mmHg", '< 80 mmHg'],
-            ['Serum Cholesterol', f"{cholesterol} mg/dL", '< 200 mg/dL']
+            ['Fasting Glucose', f"{glucose} mg/dL", '70 - 99 mg/dL'],
+            ['Systolic BP', f"{sys_bp} mmHg", '90 - 119 mmHg'],
+            ['Diastolic BP', f"{dia_bp} mmHg", '60 - 79 mmHg'],
+            ['Serum Cholesterol', f"{cholesterol} mg/dL", '120 - 199 mg/dL']
         ]
         t1 = Table(patient_data, colWidths=[200, 150, 150])
         t1.setStyle(TableStyle([
